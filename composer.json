@@ -7,7 +7,7 @@
     "prefer-stable": true,
     "require": {
         "beberlei/doctrineextensions": "dev-master",
-        "mortimer333/dullahan": "@dev",
+        "mortimer333/dullahan": "dev-master",
         "nelmio/api-doc-bundle": "^4.10",
         "symfony/flex": "^2"
     },
@@ -71,11 +71,5 @@
         "symfony/dotenv": ">=4.4.24 <7.0",
         "symfony/maker-bundle": "^1.48",
         "symfony/stopwatch": "6.4.*"
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../Dullahan"
-        }
-    ]
+    }
 }

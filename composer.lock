@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a804f555d483df9b634e38114c6e34b",
+    "content-hash": "f8a3bdf341892af9cac34dcb285470c9",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -1871,10 +1871,16 @@
         {
             "name": "mortimer333/dullahan",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mortimer333/Dullahan.git",
+                "reference": "78a3e450c2ddc246ba127bca3317e61e4bc9e10a"
+            },
             "dist": {
-                "type": "path",
-                "url": "../Dullahan",
-                "reference": "073c2697a729f2c303da894b621b71d1f10e660d"
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mortimer333/Dullahan/zipball/78a3e450c2ddc246ba127bca3317e61e4bc9e10a",
+                "reference": "78a3e450c2ddc246ba127bca3317e61e4bc9e10a",
+                "shasum": ""
             },
             "require": {
                 "codex-team/editor.js": "dev-master",
@@ -1925,6 +1931,7 @@
                 "symfony/maker-bundle": "^1.48",
                 "symfony/stopwatch": "6.4.*"
             },
+            "default-branch": true,
             "type": "symfony-bundle",
             "extra": {
                 "symfony": {
@@ -1941,9 +1948,15 @@
                     "Dullahan\\": "src/"
                 }
             },
-            "transport-options": {
-                "relative": true
-            }
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "support": {
+                "issues": "https://github.com/Mortimer333/Dullahan/issues",
+                "source": "https://github.com/Mortimer333/Dullahan/tree/master"
+            },
+            "time": "2024-03-02T11:56:46+00:00"
         },
         {
             "name": "nelmio/api-doc-bundle",
@@ -13137,7 +13150,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "beberlei/doctrineextensions": 20,
-        "mortimer333/dullahan": 20,
         "phpmd/phpmd": 0
     },
     "prefer-stable": true,
