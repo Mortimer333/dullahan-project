@@ -1,8 +1,12 @@
 # Dullahan
 
 Documentation below is basically cheat sheet to help development and might be outdated.
-Currently, Dullahan is private library although its project is public - this means you won't be able to download
-the actual functionality responsible for this service.
+
+## Installation
+
+```bash
+composer create-project mortimer333/dullahan-project
+```
 
 ## Security Cheat Sheet
 
