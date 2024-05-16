@@ -6,7 +6,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "beberlei/doctrineextensions": "dev-master",
         "mortimer333/dullahan": "dev-master",
         "nelmio/api-doc-bundle": "^4.10",
         "symfony/flex": "^2"
