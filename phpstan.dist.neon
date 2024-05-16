@@ -1,8 +1,24 @@
+includes:
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
 parameters:
-    level: 6
-    paths:
-        - bin/
-        - config/
-        - public/
-        - src/
-        - tests/
+    level: 8
+    excludePaths:
+      - Tests/_*/
+      - Tests/Support/
+      - src/Model/
+    ignoreErrors:
+      -
+        message: '#Call to an undefined method App\\Tests\\Support\\IntegrationTester::#'
+        reportUnmatched: false
+      -
+        message: '#Call to an undefined method App\\Tests\\Support\\ApiTester::#'
+        reportUnmatched: false
+      -
+        message: '#Call to an undefined method App\\Tests\\Support\\ApiTester::#'
+        reportUnmatched: false
+      -
+        message: '#Call to an undefined method App\\Tests\\Support\\UnitTester::#'
+        reportUnmatched: false
+      -
+        message: '#Call to an undefined method App\\Tests\\Support\\UnitTester::#'
+        reportUnmatched: false

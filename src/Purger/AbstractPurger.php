@@ -21,11 +21,13 @@ abstract class AbstractPurger implements ORMPurgerInterface
     }
 
     /**
-     * @param class-string<object> $className
+     * @template T of object
+     *
+     * @param class-string<T> $className
      */
     protected function truncate(string $className): void
     {
-        /** @var ClassMetadata $cmd */
+        /** @var ClassMetadata<T> $cmd */
         $cmd = $this->em->getClassMetadata($className);
 
         $this->truncateTable($cmd->getTableName());
@@ -44,6 +46,7 @@ abstract class AbstractPurger implements ORMPurgerInterface
         $dbPlatform = $connection->getDatabasePlatform();
 
         $connection->executeQuery('SET FOREIGN_KEY_CHECKS=0');
+        /** @var literal-string $q */
         $q = $dbPlatform->getTruncateTableSql($table);
         $connection->executeStatement($q);
         $connection->executeQuery('SET FOREIGN_KEY_CHECKS=1');
