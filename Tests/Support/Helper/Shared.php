@@ -101,7 +101,7 @@ class Shared extends \Codeception\Module
     public function setEm(EntityManagerInterface $em, string $emAlias): void
     {
         $this->em = $em;
-        $this->getModule('Doctrine2')->em = $em;
+        $this->getModule('Doctrine')->em = $em;
 
         /** @var \Codeception\Module\Symfony $sfModule */
         $sfModule = $this->getModule('Symfony');
