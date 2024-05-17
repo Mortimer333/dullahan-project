@@ -25,6 +25,6 @@ class DefaultController extends AbstractController implements
     #[Route('/', name: 'api_app', methods: 'GET')]
     public function index(): JsonResponse
     {
-        return $this->httpUtilService->jsonResponse('Blueprint');
+        return $this->httpUtilService->jsonResponse('Healthy');
     }
 }
