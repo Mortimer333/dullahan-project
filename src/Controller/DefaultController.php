@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Dullahan\Contract\NotDoubleSubmitAuthenticatedController;
-use Dullahan\Contract\NotTokenAuthenticatedController;
-use Dullahan\Service\Util\HttpUtilService;
+use Dullahan\Main\Contract\NotDoubleSubmitAuthenticatedController;
+use Dullahan\Main\Contract\NotTokenAuthenticatedController;
+use Dullahan\Main\Service\Util\HttpUtilService;
 use OpenApi\Attributes as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

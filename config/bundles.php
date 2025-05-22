@@ -11,5 +11,8 @@ return [
     Jose\Bundle\JoseFramework\JoseFrameworkBundle::class => ['all' => true],
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
-    Dullahan\DullahanBundle::class => ['all' => true],
+    Dullahan\Main\DullahanBundle::class => ['all' => true],
+    Dullahan\Thumbnail\DullahanThumbnailBundle::class => ['all' => true],
+    Dullahan\Asset\DullahanAssetBundle::class => ['all' => true],
+    Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle::class => ['all' => true],
 ];

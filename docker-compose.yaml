@@ -1,0 +1,50 @@
+services:
+    redis:
+        image: redis:alpine
+        container_name: dullahan-redis
+
+    jackrabbit:
+        image: sulu/jackrabbit:2.20-standalone
+        container_name: dullahan-jackrabbit
+
+    db:
+        ports:
+            - "3306:3306"
+        image: mysql:5.7
+        container_name: dullahan-db
+        working_dir: /application
+        command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --innodb-file-format=Barracuda, --innodb-large-prefix=1, --innodb-file-per-table=1]
+        volumes:
+            - dullahan-db57:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=ROOT
+            - MYSQL_DATABASE=dullahan
+            - MYSQL_USER=dullahan
+            - MYSQL_PASSWORD=dullahan
+
+    php-fpm:
+      container_name: dullahan-php-fpm
+      build: ./
+      environment:
+        COMPOSER_HOME: /app
+      ports:
+        - "9001:9001"
+      depends_on:
+        - db
+      volumes:
+        - .:/app
+
+    nginx:
+      container_name: dullahan-nginx
+      image: nginx:stable-alpine
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+        - .:/app:ro
+        - ./.docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      depends_on:
+        - php-fpm
+
+volumes:
+    dullahan-db57:

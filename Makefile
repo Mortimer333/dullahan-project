@@ -114,7 +114,13 @@ fix-test-permissions:
 	chown -R www-data var/
 
 entity:
-	php bin/console make:entity \\Shared\\Entity\\Api\\$(filter-out $@,$(MAKECMDGOALS))
+	php bin/console make:entity \\App\\Entity\\$(filter-out $@,$(MAKECMDGOALS))
 
 entity-test:
-	APP_ENV=test php bin/console make:entity \\Shared\\Entity\\Test\\$(filter-out $@,$(MAKECMDGOALS))
+	APP_ENV=test php bin/console make:entity \\App\\Entity\\Test\\$(filter-out $@,$(MAKECMDGOALS))
+
+php-shell:
+	docker exec -it dullahan-php-fpm /bin/bash
+
+update-jackrabbit-definitions:
+	docker exec -it dullahan-php-fpm php bin/console doctrine:phpcr:node-type:register ./vendor/mortimer333/dullahan/definitions/jackrabbit/ --allow-update

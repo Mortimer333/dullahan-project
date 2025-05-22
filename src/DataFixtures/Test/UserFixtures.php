@@ -7,9 +7,9 @@ namespace App\DataFixtures\Test;
 use App\DataFixtures\TestFixturesAbstract;
 use App\Service\Helper\TestHelper;
 use Doctrine\Persistence\ObjectManager;
-use Dullahan\Entity\User;
-use Dullahan\Entity\UserData;
-use Dullahan\Service\Util\BinUtilService;
+use Dullahan\Main\Entity\User;
+use Dullahan\Main\Entity\UserData;
+use Dullahan\Main\Service\Util\BinUtilService;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends TestFixturesAbstract
