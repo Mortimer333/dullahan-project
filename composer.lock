@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab3db078b654dd696948b879ed102baf",
+    "content-hash": "a2d49ec43d3455c3619fc8b63a475e99",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -2143,16 +2143,16 @@
         },
         {
             "name": "mortimer333/dullahan",
-            "version": "dev-master",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mortimer333/Dullahan.git",
-                "reference": "8f32601cba4f4b08c17c445deab3f61871be3a48"
+                "reference": "0a66a12ff88bbfc905116a3ad701e3b648529771"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mortimer333/Dullahan/zipball/8f32601cba4f4b08c17c445deab3f61871be3a48",
-                "reference": "8f32601cba4f4b08c17c445deab3f61871be3a48",
+                "url": "https://api.github.com/repos/Mortimer333/Dullahan/zipball/0a66a12ff88bbfc905116a3ad701e3b648529771",
+                "reference": "0a66a12ff88bbfc905116a3ad701e3b648529771",
                 "shasum": ""
             },
             "require": {
@@ -2216,7 +2216,6 @@
                 "symfony/maker-bundle": "^1.48",
                 "symfony/stopwatch": "7.0.*"
             },
-            "default-branch": true,
             "type": "symfony-bundle",
             "extra": {
                 "symfony": {
@@ -2231,7 +2230,10 @@
             "autoload": {
                 "psr-4": {
                     "Dullahan\\Main\\": "main/",
+                    "Dullahan\\User\\": "user/",
                     "Dullahan\\Asset\\": "asset/",
+                    "Dullahan\\Object\\": "object/",
+                    "Dullahan\\Monitor\\": "monitor/",
                     "Dullahan\\Thumbnail\\": "thumbnail/"
                 }
             },
@@ -2241,9 +2243,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Mortimer333/Dullahan/issues",
-                "source": "https://github.com/Mortimer333/Dullahan/tree/0.2.1"
+                "source": "https://github.com/Mortimer333/Dullahan/tree/0.3.0"
             },
-            "time": "2025-03-27T17:55:52+00:00"
+            "time": "2025-06-02T18:57:47+00:00"
         },
         {
             "name": "nelmio/api-doc-bundle",
@@ -14418,7 +14420,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "mortimer333/dullahan": 20,
         "phpmd/phpmd": 0
     },
     "prefer-stable": true,

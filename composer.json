@@ -6,7 +6,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "mortimer333/dullahan": "dev-master",
+        "mortimer333/dullahan": "0.3.0",
         "nelmio/api-doc-bundle": "^4.10",
         "symfony/flex": "^2"
     },

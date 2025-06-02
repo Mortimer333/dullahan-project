@@ -7,7 +7,7 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         user:
             entity:
-                class: Dullahan\Main\Entity\User
+                class: Dullahan\User\Domain\Entity\User
                 property: email
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
@@ -20,7 +20,7 @@ security:
             lazy: true
             provider: user
             custom_authenticators:
-                - Dullahan\Main\Security\ApiKeyAuthenticator
+                - Dullahan\User\Adapter\Symfony\Presentation\Http\Security\ApiKeyAuthenticator
             json_login:
                 check_path: /_/login
                 # login_path: /_/
