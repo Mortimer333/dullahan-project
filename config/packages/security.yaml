@@ -20,16 +20,14 @@ security:
             lazy: true
             provider: user
             custom_authenticators:
-                - Dullahan\User\Adapter\Symfony\Presentation\Http\Security\ApiKeyAuthenticator
+                - Dullahan\User\Adapter\Symfony\Domain\ApiKeyAuthenticator
             json_login:
-                check_path: /_/login
-                # login_path: /_/
-
+                check_path: api_user_login
             login_throttling:
                 max_attempts: 3
 
             logout:
-                path: app_user_logout
+                path: api_user_logout
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

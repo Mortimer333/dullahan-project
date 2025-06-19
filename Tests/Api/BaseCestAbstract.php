@@ -7,12 +7,12 @@ namespace App\Tests\Api;
 use App\Service\Helper\TestHelper;
 use App\Tests\Support\ApiTester;
 use Codeception\Util\Fixtures;
-use Dullahan\Contract\LoginInterface;
-use Dullahan\Contract\SuperUserInterface;
-use Dullahan\Entity\User;
-use Dullahan\Service\JWSService;
-use Dullahan\Service\User\UserManageService;
-use Dullahan\Service\Util\HttpUtilService;
+use Dullahan\Main\Service\ErrorCollector;
+use Dullahan\Main\Service\Util\HttpUtilService;
+use Dullahan\User\Adapter\Symfony\Application\UserManageService;
+use Dullahan\User\Domain\AccessControlService;
+use Dullahan\User\Domain\Entity\User;
+use Dullahan\User\Domain\JWSService;
 
 abstract class BaseCestAbstract
 {
@@ -25,11 +25,10 @@ abstract class BaseCestAbstract
     {
         $I->clearToRemove();
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->haveHttpHeader('X-CSRF-Token', 'test');
-        $I->setCookie('CSRF-Token', 'test');
 
         $httpUtilService = $I->getService(HttpUtilService::class);
-        $httpUtilService->clearErrors();
+        $errorCollector = $I->getService(ErrorCollector::class);
+        $errorCollector->clearErrors();
 
         if (!$this instanceof LoginInterface) {
             return;
@@ -73,9 +72,8 @@ abstract class BaseCestAbstract
         $this->logged = $type;
 
         $loginData = Fixtures::get('loginData');
-        ['entity' => $entity, 'token' => $token, 'role' => $role] = $loginData[$type];
-        $I->amLoggedInAs($entity);
-        $I->seeUserHasRole($role);
+        ['token' => $token, 'role' => $role, 'csrf' => $csrf] = $loginData[$type];
+        $I->haveHttpHeader('X-CSRF-Token', $csrf);
         $I->haveHttpHeader('Authorization', 'Bearer ' . $token);
     }
 
@@ -98,9 +96,10 @@ abstract class BaseCestAbstract
         $userArr = $I->getUserArray();
         $user = $userManageService->create($userArr);
         $I->addToRemove($user);
-        $I->amLoggedInAs($user);
-        $jws = $I->getService(JWSService::class);
-        $I->haveHttpHeader('Authorization', 'Bearer ' . $jws->createToken($user));
+        //        $I->amLoggedInAs($user);
+        ['token' => $token, 'csrf' => $csrf] = $this->generateAuthAndCsrfToken($I, $user);
+        $I->haveHttpHeader('X-CSRF-Token', $csrf);
+        $I->haveHttpHeader('Authorization', 'Bearer ' . $token);
 
         return [
             $userArr,
@@ -110,22 +109,40 @@ abstract class BaseCestAbstract
 
     private function setLoginData(ApiTester $I): void
     {
-        $jws = $I->getService(JWSService::class);
         $user = $I->grabEntityFromRepository(User::class, ['email' => TestHelper::USER_EMAIL]);
         $superUser = $I->grabEntityFromRepository(User::class, ['email' => TestHelper::SUPER_USER_EMAIL]);
 
         Fixtures::add('loginData', [
             'normal' => [
                 'entity' => $user,
-                'token' => $jws->createToken($user),
+                ...$this->generateAuthAndCsrfToken($I, $user),
                 'role' => 'ROLE_USER',
             ],
             'super' => [
                 'entity' => $superUser,
-                'token' => $jws->createToken($superUser),
+                ...$this->generateAuthAndCsrfToken($I, $superUser),
                 'role' => 'ROLE_SUPER_USER',
             ],
             'created' => time(),
         ]);
+    }
+
+    /**
+     * @return array{
+     *     token: string,
+     *     csrf: string,
+     * }
+     */
+    private function generateAuthAndCsrfToken(ApiTester $I, User $user): array
+    {
+        $accessControl = $I->getService(AccessControlService::class);
+        $jws = $I->getService(JWSService::class);
+        $token = $jws->createToken($user);
+        $payload = $jws->validateAndGetPayload($token);
+
+        return [
+            'token' => $token,
+            'csrf' => $accessControl->generateCSRFToken($payload['session']),
+        ];
     }
 }

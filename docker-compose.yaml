@@ -22,6 +22,21 @@ services:
             - MYSQL_USER=dullahan
             - MYSQL_PASSWORD=dullahan
 
+    db-test:
+      ports:
+        - "3307:3306"
+      image: mysql:5.7
+      container_name: dullahan-db-test
+      working_dir: /application
+      command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --innodb-file-format=Barracuda, --innodb-large-prefix=1, --innodb-file-per-table=1]
+      volumes:
+        - dullahan-db57-test:/var/lib/mysql
+      environment:
+        - MYSQL_ROOT_PASSWORD=ROOT
+        - MYSQL_DATABASE=dullahan
+        - MYSQL_USER=dullahan
+        - MYSQL_PASSWORD=dullahan
+
     php-fpm:
       container_name: dullahan-php-fpm
       build: ./
@@ -31,20 +46,24 @@ services:
         - "9001:9001"
       depends_on:
         - db
+        - db-test
       volumes:
         - .:/app
 
     nginx:
+      build: ./.docker/nginx
       container_name: dullahan-nginx
-      image: nginx:stable-alpine
       ports:
-        - "80:80"
-        - "443:443"
+        - 80:80
+        - 443:443
       volumes:
         - .:/app:ro
-        - ./.docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+        - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+        - dullahan-ssl:/etc/ssl
       depends_on:
         - php-fpm
 
 volumes:
     dullahan-db57:
+    dullahan-db57-test:
+    dullahan-ssl:

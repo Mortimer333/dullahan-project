@@ -11,7 +11,8 @@ use Codeception\Test\Unit;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Dullahan\Service\Util\BinUtilService;
+use Dullahan\Asset\Domain\File;
+use Dullahan\Main\Service\Util\BinUtilService;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class BaseIntegrationAbstract extends Unit
@@ -53,20 +54,29 @@ class BaseIntegrationAbstract extends Unit
         return require BinUtilService::getRootPath() . '/Tests/_data/' . $path;
     }
 
-    protected function requireSharedTestData(string $path): mixed
+    protected function generateUploadedFileDullahan(string $target, string $name, string $path): File
     {
-        return require BinUtilService::getRootPath() . '/shared/Tests/_data/' . $path;
+        $uploadedFile = $this->generateUploadedFile($path);
+
+        return new File(
+            $target,
+            $name,
+            $uploadedFile->getClientOriginalName(),
+            fopen($uploadedFile->getRealPath(), 'r') ?: throw new \Error('Invalid path to resource'),
+            (int) $uploadedFile->getSize(),
+            (string) $uploadedFile->guessExtension(),
+            (string) $uploadedFile->getMimeType(),
+        );
     }
 
     protected function generateUploadedFile(string $file): UploadedFile
     {
-        copy(
-            BinUtilService::getRootPath() . '/shared/Tests/_data/' . $file,
-            BinUtilService::getRootPath() . '/shared/Tests/_data/dist/' . $file,
-        );
+        $dataDir = $_ENV['PATH_FRONT_END'];
+
+        copy($dataDir . '/' . $file, $dataDir . '/dist/' . $file);
 
         return new UploadedFile(
-            BinUtilService::getRootPath() . '/shared/Tests/_data/dist/' . $file,
+            $dataDir . '/dist/' . $file,
             'test',
             test: true,
         );

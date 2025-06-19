@@ -15,7 +15,7 @@ class TestPurgerFactory implements PurgerFactory
         ?string $emName,
         EntityManagerInterface $em,
         array $excluded = [],
-        bool $purgeWithTruncate = false
+        bool $purgeWithTruncate = false,
     ): PurgerInterface {
         return new TestPurger();
     }

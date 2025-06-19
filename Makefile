@@ -65,19 +65,19 @@ analysis:
 
 unit-test:
 	@echo "Runing Unit Tests"
-	php vendor/bin/codecept run Unit $(args)
+	docker exec -it dullahan-php-fpm php vendor/bin/codecept run Unit $(args)
 
 integration-test:
 	@echo "Runing Integration Tests"
-	php vendor/bin/codecept run Integration $(args)
+	docker exec -it dullahan-php-fpm php vendor/bin/codecept run Integration $(args)
 
 api-test:
 	@echo "Running API Tests"
-	php vendor/bin/codecept run Api $(args)
+	docker exec -it dullahan-php-fpm php vendor/bin/codecept run Api $(args)
 
 coverage-test:
 	@echo "Run all tests and get html coverage"
-	XDEBUG_MODE=coverage php vendor/bin/codecept run --coverage-html
+	docker exec -it dullahan-php-fpm /bin/bash -c "XDEBUG_MODE=coverage php vendor/bin/codecept run --coverage-html"
 
 test-all:
 	$(MAKE) unit-test
@@ -85,7 +85,7 @@ test-all:
 	$(MAKE) api-test
 
 single-test:
-	bash ./dev/run_single_test.sh $(filter-out $@,$(MAKECMDGOALS))
+	docker exec -it dullahan-php-fpm bash ./dev/run_single_test.sh $(filter-out $@,$(MAKECMDGOALS))
 
 before-push:
 	$(MAKE) cs-fix
@@ -94,12 +94,12 @@ before-push:
 
 migrate:
 	@echo "Running Migrate for current and test environment"
-	php bin/console doctrine:migration:migrate --no-interaction --allow-no-migration
-	APP_ENV=test php bin/console doctrine:migration:migrate --no-interaction --allow-no-migration
+	docker exec -it dullahan-php-fpm php bin/console doctrine:migration:migrate --no-interaction --allow-no-migration
+	docker exec -it dullahan-php-fpm /bin/bash -c "APP_ENV=test php bin/console doctrine:migration:migrate --no-interaction --allow-no-migration"
 
 reset-test-db:
 	@echo "Resetting test DB - 'There is no active transaction' is expected"
-	APP_ENV=test php bin/console doctrine:fixtures:load --no-interaction --group=test  --purger=test_purger
+	docker exec -it dullahan-php-fpm /bin/bash -c "APP_ENV=test php bin/console doctrine:fixtures:load --no-interaction --group=test  --purger=test_purger"
 
 reset-dev-db:
 	@echo "Resetting current DB"

@@ -7,9 +7,9 @@ namespace App\DataFixtures\Test;
 use App\DataFixtures\TestFixturesAbstract;
 use App\Service\Helper\TestHelper;
 use Doctrine\Persistence\ObjectManager;
-use Dullahan\Main\Entity\User;
-use Dullahan\Main\Entity\UserData;
 use Dullahan\Main\Service\Util\BinUtilService;
+use Dullahan\User\Domain\Entity\User;
+use Dullahan\User\Domain\Entity\UserData;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends TestFixturesAbstract
@@ -20,7 +20,8 @@ class UserFixtures extends TestFixturesAbstract
     public const CREATOR = 'creator_user';
 
     public function __construct(
-        protected UserPasswordHasherInterface $hasher
+        protected UserPasswordHasherInterface $hasher,
+        protected BinUtilService $binUtilService,
     ) {
     }
 
@@ -96,7 +97,7 @@ class UserFixtures extends TestFixturesAbstract
         foreach ($users as $user) {
             /** @var UserData $data */
             $data = $user->getData();
-            $data->setPublicId((new BinUtilService())->generateUniqueToken((string) $user->getId()));
+            $data->setPublicId($this->binUtilService->generateUniqueToken((string) $user->getId()));
             $manager->persist($data);
         }
         $manager->flush();

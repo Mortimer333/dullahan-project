@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Support\Helper;
 
 use Codeception\Util\Fixtures;
-use Dullahan\Entity\User;
+use Dullahan\User\Domain\Entity\User;
 use Faker\Provider\Base as FakerBase;
 use League\FactoryMuffin\Faker\Facade as Faker;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
