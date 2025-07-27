@@ -15,7 +15,7 @@ return [
     Dullahan\Thumbnail\DullahanThumbnailBundle::class => ['all' => true],
     Dullahan\Asset\DullahanAssetBundle::class => ['all' => true],
     Dullahan\User\DullahanUserBundle::class => ['all' => true],
-    Dullahan\Object\DullahanObjectBundle::class => ['all' => true],
+    Dullahan\Entity\DullahanEntityBundle::class => ['all' => true],
     Dullahan\Monitor\DullahanMonitorBundle::class => ['all' => true],
     Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle::class => ['all' => true],
 ];

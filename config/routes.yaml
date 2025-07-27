@@ -1,5 +1,7 @@
 app_file:
     resource: '@DullahanBundle/config/routes.yaml'
+dullahan_entity:
+    resource: '@DullahanEntityBundle/config/routes-entity.yaml'
 controllers:
     resource:
         path: ../src/Controller/

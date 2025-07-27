@@ -124,3 +124,6 @@ php-shell:
 
 update-jackrabbit-definitions:
 	docker exec -it dullahan-php-fpm php bin/console doctrine:phpcr:node-type:register ./vendor/mortimer333/dullahan/definitions/jackrabbit/ --allow-update
+
+cache-clear:
+	docker exec -it dullahan-php-fpm php bin/console cache:clear

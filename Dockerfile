@@ -21,7 +21,9 @@ RUN apt-get update && apt-get install -y \
     supervisor \
     libssl-dev \
     iputils-ping \
-    ghostscript
+    ghostscript \
+    libgmp-dev \
+    libmagickwand-dev
 
 RUN pecl install xdebug
 # Clear cache
@@ -39,10 +41,15 @@ RUN docker-php-ext-install pdo_mysql \
 && docker-php-ext-install intl \
 && docker-php-ext-install soap \
 && docker-php-ext-install bcmath \
+&& docker-php-ext-install gmp \
 && pecl install -o -f redis \
+&& pecl install imagick \
 && rm -rf /tmp/pear \
 && docker-php-ext-enable redis \
 && docker-php-ext-enable xdebug
+
+RUN docker-php-ext-enable gmp
+RUN docker-php-ext-enable imagick
 
 #USER docker
 COPY ./ /app

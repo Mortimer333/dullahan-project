@@ -41,7 +41,7 @@ services:
       container_name: dullahan-php-fpm
       build: ./
       environment:
-        COMPOSER_HOME: /app
+        COMPOSER_HOME: /tmp/composer
       ports:
         - "9001:9001"
       depends_on:

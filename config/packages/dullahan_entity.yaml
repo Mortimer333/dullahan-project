@@ -1,0 +1,10 @@
+dullahan_entity:
+  mappings:
+    main:
+      prefix: App\Entity\Main
+
+when@test:
+  dullahan_entity:
+    mappings:
+      test:
+        prefix: App\Entity\Test
